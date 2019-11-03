@@ -1,41 +1,39 @@
-{% set name = "Metafone" %}
 {% set version = "0.5" %}
-{% set hashtype = "md5" %}
-{% set hash = "de53b4c513a985cca9b7a48181152b9b" %}
 
 package:
-  name: {{ name|lower }}
+  name: metafone
   version: {{ version }}
 
 source:
-  fn: Metafone-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hashtype }}: {{ hash }}
+  url: https://pypi.io/packages/source/M/Metafone/Metafone-{{ version }}.tar.gz
+  sha256: db34f0c1cedc1086493a5beec9a1a702325fd2b1d314515bd50f0a23131b0240
 
 build:
-    number: 1000
-    script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1001
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
-    build:
-        - python
-        - setuptools
-        - future
-    run:
-        - python
-        - future
+  build:
+    - python
+    - pip
+    - future
+  run:
+    - python
+    - future
 
 test:
-    imports:
-        - metaphone
+  imports:
+    - metaphone
 
 about:
-    home: https://github.com/oubiwann/metaphone
-    license: BSD 3-clause
-    license_family: BSD
-    summary: A Python implementation of the double metaphone algorithms
+  home: https://github.com/oubiwann/metaphone
+  license: BSD-3-Clause
+  license_file: LICENSE
+  license_family: BSD
+  summary: 'A Python implementation of the double metaphone algorithms'
 
 extra:
-    recipe-maintainers:
-        - wyseguy7
-        - ericdill
+  recipe-maintainers:
+    - wyseguy7
+    - ericdill
