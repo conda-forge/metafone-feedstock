@@ -5,24 +5,26 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/M/Metafone/Metafone-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/M/Metafone/Metafone-{{ version }}.tar.gz
   sha256: db34f0c1cedc1086493a5beec9a1a702325fd2b1d314515bd50f0a23131b0240
 
 build:
-  number: 1001
+  number: 1002
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
-  build:
-    - python
+  host:
+    - python {{ python_min }}
     - pip
     - future
   run:
-    - python
+    - python >={{ python_min }}
     - future
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - metaphone
 
